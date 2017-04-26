@@ -10,7 +10,8 @@ var base = function () {
             app:[
                 './front/app.js',
                 'webpack-hot-middleware/client?reload=true'
-            ]
+            ],
+            vendor: 'moment'
         },
         output: {
             path: path.join(__dirname,'/www/dist'),
@@ -43,13 +44,18 @@ var base = function () {
                 }
             ],
         },
+        plugins: [
+            new webpack.optimize.CommonsChunkPlugin({
+                names: ['vendor'] // 指定公共 bundle 的名字。
+            })
+        ]
     }
 };
 module.exports = function() {
     if (process.env.NODE_ENV === 'production') {
         return webpackMerge(base(), {
             output: {
-                filename: '[name].bundle.[chunkhash].js',
+                filename: '[name].[chunkhash].js',
             },
             devtool:'#source-map',
             plugins: [
