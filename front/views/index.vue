@@ -73,34 +73,17 @@
                     </div>
                 </div>
 
-
-
-
-
                 <!-- Sidebar Menu -->
                 <sidebar-menu></sidebar-menu>
                 <!-- /.sidebar-menu -->
-
-
 
             </section>
             <!-- /.sidebar -->
         </aside>
 
-
-
-
-
-
         <!-- Content Wrapper. Contains page content -->
         <router-view></router-view>
         <!-- /.content-wrapper -->
-
-
-
-
-
-
 
         <!-- Main Footer -->
         <footer class="main-footer">
@@ -119,18 +102,7 @@
 <script>
     import SidebarMenu from '../components/sidebar_menu.vue'
     import Page from '../views/public/page.vue'
-    import store from '../store/index'
-    import {oam_user} from '../store/getters'
     export default{
-        store: store,
-        vuex:{
-            getters:{
-                oam_user
-            },
-            actions: {
-
-            }
-        },
         data(){
             return{
                 

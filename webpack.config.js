@@ -1,67 +1,81 @@
 /**
- * Created by tangjiang on 16/3/14.
+ * Created by tangjiang on 2017/4/26.
  */
 var webpack = require('webpack');
-
-module.exports = {
-    entry: {
-        app:'./front/app.js'
-    },
-    output: {
-        path: './www/dist',
-        publicPath: 'dist/',// 网站访问目录,打包后的文件可以通过[http://地址/dist/a.js]访问
-        filename: '[name].js'
-    },
-    module: {
-        // avoid webpack trying to shim process
-        noParse: /es6-promise\.js$/,
-        loaders: [
-            {
-                test: /\.vue$/,
-                loader: 'vue'
-            },
-            {
-                test: /\.js$/,
-                // excluding some local linked packages.
-                // for normal use cases only node_modules is needed.
-                exclude: /node_modules|vue\/dist|vue-router\/|vue-loader\/|vue-hot-reload-api\//,
-                loader: 'babel'
-            },
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.png$/, loader: "url-loader?limit=100000" },
-            { test: /\.jpg$/, loader: "file-loader" }
-        ]
-    },
-    plugins:[
-        //new webpack.optimize.UglifyJsPlugin({
-        //        compress: {
-        //            warnings: false
-        //        }
-        //})
-    ],
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
+var path = require('path');
+const webpackMerge = require('webpack-merge');
+var base = function () {
+    return {
+        entry: {
+            app:[
+                './front/app.js',
+                'webpack-hot-middleware/client?reload=true'
+            ]
+        },
+        output: {
+            path: path.join(__dirname,'/www/dist'),
+            publicPath: 'dist/',
+            filename: '[name].[chunkhash].js',
+            sourceMapFilename: '[name].map'
+        },
+        module: {
+            loaders: [
+                {
+                    test: /\.vue/,
+                    loaders: 'vue-loader'
+                },
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.css$/,
+                    loaders: ['to-string-loader', 'css-loader']
+                },
+                {
+                    test: /\.(jpg|png|gif)$/,
+                    loader: 'file-loader'
+                },
+                {
+                    test: /\.(woff|woff2|eot|ttf|svg)$/,
+                    loader: 'url-loader?limit=100000'
+                }
+            ],
+        },
     }
-
-}
-module.exports.devtool = '#source-map'
-
-
-if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map'
-    // http://vuejs.github.io/vue-loader/workflow/production.html
-    module.exports.plugins = (module.exports.plugins || []).concat([
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
+};
+module.exports = function() {
+    if (process.env.NODE_ENV === 'production') {
+        return webpackMerge(base(), {
+            output: {
+                filename: '[name].bundle.[chunkhash].js',
+            },
+            devtool:'#source-map',
+            plugins: [
+                new webpack.LoaderOptionsPlugin({
+                    minimize: true,
+                    debug: false
+                }),
+                new webpack.optimize.UglifyJsPlugin({
+                    beautify: false,
+                    mangle: {
+                        screw_ie8: true,
+                        keep_fnames: true
+                    },
+                    compress: {
+                        screw_ie8: true,
+                        warnings: false
+                    },
+                    comments: false
+                })
+            ]
+        })
+    }else {
+        return webpackMerge(base(), {
+            output: {
+                filename: '[name].[hash].js'
             }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.OccurenceOrderPlugin()
-    ])
+        })
+    }
 }
