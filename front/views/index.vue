@@ -102,12 +102,12 @@
 <script>
     import SidebarMenu from '../components/sidebar_menu.vue'
     import Page from '../views/public/page.vue'
+    import { mapGetters } from 'vuex'
     export default{
         data(){
-            return{
-                
-            }
+            return{}
         },
+        computed: mapGetters({oam_user:'oam_user'}),
         components:{
             SidebarMenu,
             Page

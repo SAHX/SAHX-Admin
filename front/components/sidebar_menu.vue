@@ -14,13 +14,13 @@
             <!--</ul>-->
         <!--</li>-->
         <li class="treeview" v-for="i in menu_data">
-            <a href="#"><i class="{{i.icon}}"></i> <span>{{i.name}}</span>
+            <a href="#"><i :class="i.icon"></i> <span>{{i.name}}</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li v-for="e in i.child"><a v-link="e.link">{{e.name}}</a></li>
+                <li v-for="e in i.child"><router-link to="e.link">{{e.name}}</router-link></li>
             </ul>
         </li>
     </ul>
