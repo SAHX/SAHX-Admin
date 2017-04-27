@@ -4,6 +4,7 @@
 var webpack = require('webpack');
 var path = require('path');
 const webpackMerge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 var base = function () {
     return {
         entry: {
@@ -15,7 +16,7 @@ var base = function () {
         },
         output: {
             path: path.join(__dirname,'/www/dist'),
-            publicPath: 'dist/',
+            publicPath: '/dist/',
             filename: '[name].[chunkhash].js',
             sourceMapFilename: '[name].map'
         },
@@ -47,6 +48,10 @@ var base = function () {
         plugins: [
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['vendor'] // 指定公共 bundle 的名字。
+            }),
+            new HtmlWebpackPlugin({  // 自动生成包含新的打包文件路径的html文件
+                filename: path.join(__dirname,'/view/home/index_index.html'), // 输出html文件到 thinkjs view（视图）对应的home模块下
+                template: 'view/home/webpack_template.html'
             })
         ]
     }
