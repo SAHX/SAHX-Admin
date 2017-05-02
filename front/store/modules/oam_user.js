@@ -5,11 +5,7 @@ import * as types from '../mutation-types'
 
 // initial state
 const state = {
-    user_info:{
-        name:'SAHX',
-        avatar:'/static/adminlet/img/user7-128x128.jpg',
-        job:'前端开发工程师'
-    }
+    user_info:{}
 };
 
 // mutations

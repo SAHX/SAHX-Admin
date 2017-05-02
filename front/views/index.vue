@@ -106,6 +106,21 @@
         data(){
             return{}
         },
+        beforeCreate(){
+            /**
+             * 请求的具体用法，请参考：
+             *   https://github.com/mzabriskie/axios
+             */
+            this.$http.post('/api/fetch_oam_user',{type:1}).then( response => {
+                let data = response.data;
+                if(data.error_code){
+                    console.log('请求出错：', data.message);
+                    return
+                }
+                let oamUser = data.data;
+                this.$store.dispatch('saveOamUser',oamUser)
+            })
+        },
         computed: {
             ...mapGetters({
                 oam_user:'oam_user'

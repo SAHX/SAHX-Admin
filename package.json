@@ -21,7 +21,8 @@
     "thinkjs": "2.2.X",
     "vue": "^2.2.6",
     "vue-router": "^2.5.0",
-    "vuex": "^2.3.0"
+    "vuex": "^2.3.0",
+    "axios": "^0.16.1"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

@@ -20,7 +20,7 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li v-for="e in i.child"><router-link to="e.link">{{e.name}}</router-link></li>
+                <li v-for="e in i.child"><router-link :to="e.link">{{e.name}}</router-link></li>
             </ul>
         </li>
     </ul>
