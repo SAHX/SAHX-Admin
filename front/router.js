@@ -10,9 +10,27 @@ export default [
     {
         path: '/',
         component: resolve => {
-            require.ensure(['./views/index.vue'], () => {
-                resolve(require('./views/index.vue'))
+            require.ensure(['./views/public/page.vue'], () => {
+                resolve(require('./views/public/page.vue'))
             })
         }
+    },
+    {
+        path: '/project',
+        component: resolve => {
+            require.ensure(['./views/project/index.vue'], () => {
+                resolve(require('./views/project/index.vue'))
+            })
+        },
+        children:[
+            {
+                path:'/',
+                component: resolve => {
+                    require.ensure(['./views/project/list.vue'], () => {
+                        resolve(require('./views/project/list.vue'))
+                    })
+                }
+            }
+        ]
     }
 ]

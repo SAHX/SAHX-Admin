@@ -4,7 +4,7 @@
         <ul class="pagination">
             <li class="arrow"><a @click="back">«</a>
             </li>
-            <li v-for="i in page_num | limitBy size from-1" @click="page(i)" class="page_no" id="page_n0_{{i}}"><a >{{i}}</a>
+            <li v-for="i in page_num" @click="page(i)" class="page_no" :id="'page_n0_'+i"><a >{{i}}</a>
             </li>
             <li class="arrow"><a @click="next">»</a>
             </li>

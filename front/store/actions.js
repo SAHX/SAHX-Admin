@@ -3,8 +3,8 @@
  */
 import * as types from './mutation-types'
 
-export const saveOamUser = ({ dispatch }, user_info) => { // 存储OAM用户信息
-    dispatch(types.SAVE_OAM_USER, user_info);
+export const saveOamUser = ({ commit }, user_info) => { // 存储OAM用户信息
+    commit(types.SAVE_OAM_USER, user_info);
 };
 
 

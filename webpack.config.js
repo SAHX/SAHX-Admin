@@ -82,6 +82,7 @@ if (process.env.NODE_ENV === 'production') {
     module.exports = webpackMerge(base, {
         output: {
             filename: '[name].[hash].js'
-        }
+        },
+        devtool: "cheap-eval-source-map"
     })
 }
