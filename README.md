@@ -2,6 +2,7 @@
 # SAHX 后台管理系统
 >### 注意：
 > 近期正在进行Vue系列的版本升级，部分代码未完成，大家 clone or download 时，请到 [release](https://github.com/SAHX/SAHX-Admin/releases) 中下载源码。
+> 最新升级进展，请见到 [此处](https://github.com/SAHX/SAHX-Admin/projects/2)
 > 
 ---
 >
