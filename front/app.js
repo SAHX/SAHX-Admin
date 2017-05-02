@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import { sync } from 'vuex-router-sync'
 import store from './store/index'
 import RouterConfig from './router'
 import axios from 'axios'
@@ -17,6 +18,7 @@ Vue.use(api,axios); // 自定义插件, 其内有全局请求属性方法：api 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 const router = new VueRouter({base: __dirname, routes:RouterConfig});
+sync(store, router);
 new Vue({
     el: '#app',
     store,

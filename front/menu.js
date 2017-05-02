@@ -8,7 +8,7 @@ const menu_data =
             icon: 'fa fa-archive',
             child: [
                 {name: '新增项目', link: '/project/add/'},
-                {name: '项目列表', link: '/project/list/'}
+                {name: '项目列表', link: '/project/'}
 
             ]
         },
