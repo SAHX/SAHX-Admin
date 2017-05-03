@@ -24,10 +24,18 @@ export default [
         },
         children:[
             {
-                path:'/',
+                path:'',
                 component: resolve => {
                     require.ensure(['./views/project/list.vue'], () => {
                         resolve(require('./views/project/list.vue'))
+                    })
+                }
+            },
+            {
+                path:'add',
+                component: resolve => {
+                    require.ensure(['./views/project/add.vue'], () => {
+                        resolve(require('./views/project/add.vue'))
                     })
                 }
             }

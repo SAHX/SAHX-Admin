@@ -1,4 +1,4 @@
-<template xmlns:v-validate="http://www.w3.org/1999/xhtml">
+<template>
 <div class="content-wrapper" style="min-height: 685px">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -7,7 +7,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a v-link="'/project/list'"> 项目列表</a></li>
+            <li><router-link to="/project/list"> 项目列表</router-link></li>
             <li class="active">新增项目</li>
         </ol>
     </section>
@@ -20,17 +20,16 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <validator name="validation1">
-                <form role="form" style="margin-left: 20px;">
+
+                <div role="form" style="margin-left: 20px;">
                     <div class="box-body">
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div :class="{'form-group':true, 'has-error':errors.has('项目名称')}">
                                     <label for="project_name">项目名称</label>
-                                    <input type="text" class="form-control" id="project_name" placeholder="请输入 项目名称" v-model="project_name" initial="off" v-validate:project_name="['required']">
-
-                                    <p class="text-red" v-if="$validation1.project_name.required"><small>项目名称不能为空!</small></p>
+                                    <input name="项目名称" v-validate="'required|alpha_dash'" :class="{'input': true, 'is-danger': errors.has('项目名称') }" class="form-control" id="project_name" placeholder="请输入 项目名称" v-model="project_name" initial="off">
+                                    <span v-show="errors.has('项目名称')" class="help-block is-danger"><small>{{errors.first('项目名称')}}</small></span>
                                 </div>
                             </div>
                         </div>
@@ -87,8 +86,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>备注</label>
-                                    <textarea class="form-control" rows="3" placeholder="备注 ..." v-model="remarks" initial="off" v-validate:remarks="['required']"></textarea>
-                                    <p class="text-red" v-if="$validation1.remarks.required"><small>备注不能为空!</small></p>
+                                    <textarea name="备注" class="form-control" rows="3" placeholder="备注 ..." v-validate="'required'" v-model="remarks" initial="off"></textarea>
+                                    <p class="text-red" v-show="errors.has('备注')"><small>备注不能为空!</small></p>
                                 </div>
                             </div>
                         </div>
@@ -99,8 +98,8 @@
                     <div class="box-footer">
                         <button class="btn btn-primary" @click="data_request">新 增</button>
                     </div>
-                </form>
-            </validator>
+                </div>
+
         </div>
 
     </section>
@@ -111,9 +110,8 @@
     @import url('/static/plugins/daterangepicker/daterangepicker.css');
 </style>
 <script>
-    import {oam_req} from '../../util/base_request'
     export default{
-        ready(){
+        mounted(){
             $.getScript('/static/plugins/daterangepicker/moment.min.js').done(function () {
                 })
                 .fail(function () {
@@ -147,7 +145,6 @@
         methods:{
             data_request(){
                 let self = this;
-
                 let params = {};
                 params.project_name = this.project_name;
                 params.type = this.type;
@@ -156,22 +153,13 @@
                 params.female_price = this.female_price;
                 params.start_time = this.start_time;
                 params.end_time = this.end_time;
-                this.$validate(true, function () {
 
-                    if (self.$validation1.valid) {
-                        oam_req(1, params, function (data) {
-                            if(data.common.code){
-                                alert('新增失败!')
-                            }else {
-                                self.$router.go('/');
-                            }
-                        })
-                    }
+                this.$validator.validateAll().then(() => {
+                    alert('提交成功！')
+                }).catch(() => {
 
-                })
-
+                });
             }
         }
-
     }
 </script>

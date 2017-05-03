@@ -12,9 +12,9 @@ import Base from './base.js';
 
 export default class extends Base {
     oamRequestAction(){
-        let cmdid = this.post('cmdid');
-        let params = JSON.parse(this.post('params'));
-        api(this, cmdid, params);
+        let url = this.post('url');
+        let params = this.post('params');
+        api(this, url, params);
     }
 
 }

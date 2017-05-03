@@ -18,7 +18,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">项目列表</h3>
-                    <a v-link="'/project/add'"><button class="btn btn-success" style="float: right">新增</button></a>
+                    <router-link to="/project/add"><button class="btn btn-success" style="float: right">新增</button></router-link>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -52,7 +52,7 @@
                             </td>
                             <td>地推</td>
                             <td><span class="badge bg-red">已结束</span></td>
-                            <td><a v-link="'/project/edit/1'"><button class="btn btn-primary btn-xs">编辑</button></a></td>
+                            <td><router-link to="/project/edit/1"><button class="btn btn-primary btn-xs">编辑</button></router-link></td>
                         </tr>
                         <tr>
                             <td>2016暑假地推</td>
@@ -62,7 +62,7 @@
                             </td>
                             <td>地推</td>
                             <td><span class="badge bg-yellow">未开始</span></td>
-                            <td><a v-link="'/project/edit/2'"><button class="btn btn-primary btn-xs">编辑</button></a></td>
+                            <td><router-link to="/project/edit/2"><button class="btn btn-primary btn-xs">编辑</button></router-link></td>
                         </tr>
                         <tr>
                             <td>2016暑假地推</td>
@@ -72,7 +72,7 @@
                             </td>
                             <td>地推</td>
                             <td><span class="badge bg-green">正在进行</span></td>
-                            <td><a v-link="'/project/edit/3'"><button class="btn btn-primary btn-xs">编辑</button></a></td>
+                            <td><router-link to="/project/edit/3"><button class="btn btn-primary btn-xs">编辑</button></router-link></td>
                         </tr>
                         <tr v-for="i in project_list">
                             <td>{{i.project_name}}</td>
@@ -84,7 +84,7 @@
                             <td v-if="i.type==2">线上推广</td>
                             <td v-if="i.type==3">线下活动</td>
                             <td><span class="badge bg-green">正在进行</span></td>
-                            <td><a v-link="'/project/edit/'+i.project_id"><button class="btn btn-primary btn-xs">编辑</button></a></td>
+                            <td><router-link :to="'/project/edit/'+i.project_id"><button class="btn btn-primary btn-xs">编辑</button></router-link></td>
                         </tr>
 
                         </tbody>
@@ -115,7 +115,7 @@
         components:{
             pagination
         },
-        ready(){
+        mounted(){
             this.data_request();
         },
         data(){
@@ -129,19 +129,13 @@
         },
         methods:{
             data_request(){
-                let self = this;
-
                 let params = {};
-
                 params.page_index = this.page_index;
                 params.page_size = this.page_size;
                 params.type = this.type;
-
-                oam_req(1, params, function (data) {
-
+                this.$api('/demo', params, function (data) {
+                    console.log(data)
                 })
-
-
             }
         }
     }

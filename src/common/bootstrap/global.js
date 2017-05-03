@@ -4,19 +4,18 @@
 
 let API_URL = think.config('api_url');
 
-global.oam_request = function(cmdid,body,callback){
+global.oam_request = function(url,body,callback){
     let request = require('request');
     let option = {
         url: API_URL,
         method: "POST",
         json: true,
         headers: {
-            "cmdid": cmdid,
             "timestamp": new Date().getTime()
         },
         body: body
     };
-    console.log(API_URL)
+
     request(option, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             callback(body);
