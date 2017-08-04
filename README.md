@@ -37,12 +37,5 @@ npm start
 http://127.0.0.1:8360
 ```
 
-## 接下来要做点什么?
-
-- [Thinkjs] 表格导出Excel文件,CSV文件
-- [Thinkjs] 微信开发SDK接入
-- [Thinkjs] 七牛云存储token生成
-- [Vue] 接入[ElementUI](https://github.com/ElemeFE/element)
-- [Vue] 接入[iview](https://github.com/iview/iview)
-
-具体开发进度看[这里](https://github.com/SAHX/SAHX-Admin/projects/1)
+## 其它
+UI基于iview的SAHX-Admin版本：[SAHX-Admin-iview](https://github.com/SAHX/SAHX-Admin-iview)
