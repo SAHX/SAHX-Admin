@@ -24,7 +24,7 @@ npm install
 ```
 ##### 2 前端编译（主要编译front里的vue文件）
 ```
-npm run dev
+npm run build
 ```
 
 ##### 3 启动服务（默认8360端口）
